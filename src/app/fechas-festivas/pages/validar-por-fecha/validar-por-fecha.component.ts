@@ -7,18 +7,38 @@ import { FestivosService } from '../../services/festivos.service';
   styleUrl: './validar-por-fecha.component.css',
 })
 export class ValidarPorFechaComponent {
+  date: any;
+
   public esFestivo: string = '';
+
   public anho: number = 2020;
+
   public mes: number = 1;
+
   public dia: number = 1;
+
+  mostrarDiv: boolean = false;
 
   constructor(private festivosService: FestivosService) {}
 
-  validarFestivoPorFecha(anho: number, mes: number, dia: number) {
-    return this.festivosService
-      .getFestivosPorFecha(anho, mes, dia)
+  toggleDiv() {
+    this.mostrarDiv = true;
+  }
+
+  validarFestivoPorFecha() {
+    console.log('validarFestivoPorFecha');
+
+    let dateObject = new Date(this.date);
+    let year = dateObject.getFullYear();
+    let month = dateObject.getMonth();
+    let day = dateObject.getDate();
+
+    this.festivosService
+      .getFestivosPorFecha(year, month, day)
       .subscribe((resp) => {
         this.esFestivo = resp;
       });
+
+    console.log(this.esFestivo);
   }
 }

@@ -7,19 +7,29 @@ import { FestivosService } from '../../services/festivos.service';
   templateUrl: './validar-por-anho.component.html',
   styleUrl: './validar-por-anho.component.css',
 })
-export class ValidarPorAnhoComponent implements OnInit {
+export class ValidarPorAnhoComponent {
   public festivos: FestivoPorAnho[] = [];
+
+  date: any;
+
+  mostrarDiv: boolean = false;
 
   constructor(private festivosService: FestivosService) {}
 
-  ngOnInit(): void {
-    this.festivosService.getFestivosPorAnho(2020).subscribe((festivos) => {
-      this.festivos = festivos;
-    });
+  toggleDiv() {
+    this.mostrarDiv = true;
   }
 
-  validarFestivo(anho: number) {
-    this.festivosService.getFestivosPorAnho(anho).subscribe((festivos) => {
+  validarFestivo() {
+    console.log('validarFestivo');
+    let dateObject = new Date(this.date); // Asegúrate de que this.date es una fecha válida
+    let year = dateObject.getFullYear();
+    if (!year) {
+      console.error('Fecha no válida');
+      return;
+    }
+
+    this.festivosService.getFestivosPorAnho(year).subscribe((festivos) => {
       this.festivos = festivos;
     });
   }

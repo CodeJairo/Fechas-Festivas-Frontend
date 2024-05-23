@@ -8,15 +8,19 @@
       </button>
     </mat-toolbar>
 
-    <mat-nav-list>
-      <mat-list-item
+    <!-- <mat-nav-list> -->
+    <ul class="list-group">
+      <li
+        class="list-group-item"
         *ngFor="let item of sidenavItems"
         [routerLink]="item.route"
         (click)="sidenav.toggle()"
+        routerLinkActive="active"
       >
         {{ item.label }}
-      </mat-list-item>
-    </mat-nav-list>
+      </li>
+    </ul>
+    <!-- </mat-nav-list> -->
   </mat-sidenav>
 
   <mat-toolbar color="primary">

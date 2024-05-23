@@ -9,14 +9,16 @@ import { SharedModule } from '../shared/shared.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MaterialModule } from '../material/material.module';
 import { PrimengModule } from '../primeng/primeng.module';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     ValidarPorFechaComponent,
-    ValidarPorAnhoComponent,
     LayoutPageComponent,
     SidenavComponent,
+    ValidarPorAnhoComponent,
   ],
+  providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
     FechasFestivasRoutingModule,
