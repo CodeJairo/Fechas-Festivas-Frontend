@@ -1,6 +1,6 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
-    <mat-toolbar>
+    <mat-toolbar color="primary">
       <span>Menú</span>
       <span class="spacer"></span>
       <button mat-icon-button (click)="(sidenav.toggle)">
@@ -23,9 +23,11 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
+    <span class="spacer"></span>
 
-    <!-- <span class="spacer mat-button"> </span>
-    <button mat-button>Logout</button> -->
+    <span>Validador de fechas festivas</span>
+
+    <span class="spacer"></span>
   </mat-toolbar>
   <div class="container p-2">
     <router-outlet></router-outlet>
