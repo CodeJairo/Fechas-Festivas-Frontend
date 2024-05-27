@@ -11,14 +11,16 @@
     />
     <label for="message">Seleccione un año</label>
   </p-floatLabel>
-  <p-button
-    (onClick)="toggleDiv()"
-    (onClick)="validarFestivo()"
-    label="Submit"
-  />
+  <p-button (onClick)="validarFestivo()" label="Submit" />
   <span class="spacer"></span>
 </div>
 <br />
+
+<div *ngIf="esFestivo !== ''">
+  <p class="p-3 text-center text-xl">
+    {{ esFestivo }}
+  </p>
+</div>
 
 <div class="card" *ngIf="mostrarDiv">
   <p-table

@@ -25,20 +25,41 @@ export class ValidarPorFechaComponent {
     this.mostrarDiv = true;
   }
 
+  restoreValues() {
+    this.date = '';
+  }
+
   validarFestivoPorFecha() {
     console.log('validarFestivoPorFecha');
 
     let dateObject = new Date(this.date);
     let year = dateObject.getFullYear();
-    let month = dateObject.getMonth();
+    let month = dateObject.getMonth() + 1;
     let day = dateObject.getDate();
 
-    this.festivosService
-      .getFestivosPorFecha(year, month, day)
-      .subscribe((resp) => {
-        this.esFestivo = resp;
-      });
+    if (!year || !month || !day) {
+      this.esFestivo = 'Fecha no válida';
+      this.mostrarDiv = true;
+      return;
+    }
 
-    console.log(this.esFestivo);
+    this.festivosService.getFestivosPorFecha(year, month, day).subscribe({
+      next: (resp) => {
+        if (resp) {
+          this.esFestivo = 'Es festivo';
+          this.restoreValues();
+        } else {
+          this.esFestivo = 'No es festivo';
+          this.restoreValues();
+        }
+        this.mostrarDiv = true;
+      },
+      error: (response) => {
+        this.esFestivo = response.error;
+        this.mostrarDiv = true;
+        console.error('Algo Salió mal!', response);
+        this.restoreValues();
+      },
+    });
   }
 }

@@ -11,7 +11,7 @@ export class ValidarPorAnhoComponent {
   public festivos: FestivoPorAnho[] = [];
 
   date: any;
-
+  esFestivo: string = '';
   mostrarDiv: boolean = false;
 
   constructor(private festivosService: FestivosService) {}
@@ -20,17 +20,34 @@ export class ValidarPorAnhoComponent {
     this.mostrarDiv = true;
   }
 
+  restoreValues() {
+    this.date = '';
+  }
+
   validarFestivo() {
     console.log('validarFestivo');
-    let dateObject = new Date(this.date); // Asegúrate de que this.date es una fecha válida
+    let dateObject = new Date(this.date);
     let year = dateObject.getFullYear();
     if (!year) {
       console.error('Fecha no válida');
+      this.esFestivo = 'Fecha no válida';
+      this.mostrarDiv = false;
+      this.restoreValues();
       return;
     }
-
-    this.festivosService.getFestivosPorAnho(year).subscribe((festivos) => {
-      this.festivos = festivos;
+    this.festivosService.getFestivosPorAnho(year).subscribe({
+      next: (festivos) => {
+        this.festivos = festivos;
+        this.esFestivo = '';
+        this.mostrarDiv = true;
+        this.restoreValues();
+      },
+      error: (response) => {
+        this.esFestivo = response.error;
+        console.error('Somthing went wrong:', response);
+        this.mostrarDiv = false;
+        this.restoreValues();
+      },
     });
   }
 }

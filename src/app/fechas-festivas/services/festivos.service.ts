@@ -12,7 +12,7 @@ export class FestivosService {
 
   getFestivosPorAnho(anho: number): Observable<FestivoPorAnho[]> {
     return this.httpClient.get<FestivoPorAnho[]>(
-      `${this.baseUrl}/api/festivo/ObtenerFestivosNano/${anho}`
+      `${this.baseUrl}/festivos/validarAnho/${anho}`
     );
   }
   getFestivosPorFecha(
@@ -21,7 +21,7 @@ export class FestivosService {
     dia: number
   ): Observable<string> {
     return this.httpClient.get<string>(
-      `${this.baseUrl}/api/festivo/verificar/${anho}/${mes}/${dia}`
+      `${this.baseUrl}/festivos/validar/${anho}/${mes}/${dia}`
     );
   }
 }
